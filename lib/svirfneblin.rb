@@ -79,19 +79,24 @@ class Svirfneblin
   end
 
   def display_title
-      title = "SVIRFNEBLIN"
-      by = "by"
-      author = "oddmunds"
+    title = "SVIRFNEBLIN"
+    by = "by"
+    author = "oddmunds"
+    
+    write((@@WIDTH/2)-(title.length/2), @@HEIGHT/2, title, :underline)
+    write((@@WIDTH/2)-(@@VERSION.length/2),@@HEIGHT/2+1,@@VERSION)
+    write((@@WIDTH/2)-(by.length/2),(@@HEIGHT/2+3),by)
+    write((@@WIDTH/2)-(author.length/2),(@@HEIGHT/2+4), author)        
+  end
 
-
-      @window.move(@@HEIGHT/2, (@@WIDTH/2)-(title.length/2))
+  def write(x,y,text, *attributes)
+    if attributes.include?(:underline)
       @window.attron(Ncurses::A_UNDERLINE)
-      @window.addstr(title)
-      @window.attrset(Ncurses::A_NORMAL)
-      @window.move(@@HEIGHT/2+1, (@@WIDTH/2)-(@@VERSION.length/2))
-      @window.addstr(@@VERSION)
-      @window.move(@@HEIGHT/2+3, (@@WIDTH/2)-(by.length/2))
-      @window.addstr(by)
-      @window.move(@@HEIGHT/2+4, (@@WIDTH/2)-(author.length/2))    
+    end
+
+    @window.move(y,x)
+    @window.addstr(text)
+
+    @window.attrset(Ncurses::A_NORMAL)
   end
 end
