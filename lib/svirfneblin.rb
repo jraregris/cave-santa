@@ -2,7 +2,7 @@ require 'ncurses'
 
 class Svirfneblin
   
-  @@VERSION = "0.002-3"
+  @@VERSION = "0.002-4"
 
   @@WIDTH = 80
   @@HEIGHT = 13
@@ -38,8 +38,6 @@ class Svirfneblin
 
       display_title
 
-
-
       while((c = @window.getch) != 113) #q
         case c
         when Ncurses::KEY_LEFT
@@ -69,8 +67,8 @@ class Svirfneblin
         @window.attrset(Ncurses::A_NORMAL)
 
         @window.move(@y+1,@x)
-
         @window.addstr("@")
+
         @window.refresh
       end
     ensure
@@ -83,7 +81,10 @@ class Svirfneblin
     by = "by"
     author = "oddmunds"
     
-    write((@@WIDTH/2)-(title.length/2), @@HEIGHT/2, title, :underline)
+    cx = @@WIDTH/2
+    cy = @@HEIGHT/2
+
+    write(cx-(title.length/2), @@HEIGHT/2, title, :underline)
     write((@@WIDTH/2)-(@@VERSION.length/2),@@HEIGHT/2+1,@@VERSION)
     write((@@WIDTH/2)-(by.length/2),(@@HEIGHT/2+3),by)
     write((@@WIDTH/2)-(author.length/2),(@@HEIGHT/2+4), author)        
