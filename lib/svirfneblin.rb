@@ -2,12 +2,14 @@ require 'ncurses'
 
 class Svirfneblin
   
-  @@VERSION = "0.002-4"
+  @@VERSION = "0.002-5"
 
   @@WIDTH = 80
   @@HEIGHT = 13
 
   def initialize
+
+    @t = 0
 
     @x = rand(@@WIDTH)
     @y = rand(@@HEIGHT)
@@ -61,7 +63,7 @@ class Svirfneblin
 
         @window.move(0,0)
         @window.attron(Ncurses::A_REVERSE)
-        @window.addstr(" X: " + @x.to_s + " Y: " + @y.to_s + " Key: " + c.to_s + " ")
+        @window.addstr(" X: " + @x.to_s + " Y: " + @y.to_s + " Key: " + c.to_s + " Turn: " + @t.to_s)
         @window.move(0,@@WIDTH-16)
         @window.addstr("Press q to quit ")
         @window.attrset(Ncurses::A_NORMAL)
@@ -70,6 +72,7 @@ class Svirfneblin
         @window.addstr("@")
 
         @window.refresh
+        @t = @t + 1
       end
     ensure
       Ncurses.endwin
