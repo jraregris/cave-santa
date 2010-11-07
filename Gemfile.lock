@@ -1,0 +1,14 @@
+GIT
+  remote: http://github.com/danopia/luck.git
+  revision: 70ffc07cfffc3c2cc81a4586198295ba13983212
+  specs:
+    luck (0.1.6)
+
+GEM
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  luck!
