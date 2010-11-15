@@ -8,7 +8,7 @@ class Map
     @cells = {}
     (0..width-1).each do |x|
       (0..height-1).each do |y|
-        @cells[Coordinate.new(x,y).to_s] = '.'
+        @cells[Coordinate.new(x,y)] = '.'
       end
     end
   end
@@ -17,6 +17,10 @@ class Map
     if not (x or y)
       return @cells
     end
-    @cells[Coordinate.new(x,y).to_s]
+    @cells[Coordinate.new(x,y)]
+  end
+
+  def [](x,y)
+    @cells[Coordinate.new(x,y)]
   end
 end

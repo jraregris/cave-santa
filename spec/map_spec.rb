@@ -18,4 +18,11 @@ describe Map do
       map.cells(0,0).should == '.'
     end
   end
+
+  context "[]" do
+    it "should return cell(x,y) when asked for it" do
+      map = Map.new(80,25)
+      map[30,30].should == map.cells(30,30)
+    end
+  end
 end

@@ -11,6 +11,10 @@ class Coordinate
     false
   end
 
+  def eql?(other)
+    self == other
+  end
+
   def hash
     @x.hash + @y.hash
   end
