@@ -2,9 +2,6 @@ require 'bundler'
 Bundler.setup
 require 'luck'
 
-@@WIDTH = 80
-@@HEIGHT = 24
-
 class Coordinate
   def initialize(x,y)
     @x,@y = x,y
@@ -22,7 +19,7 @@ end
 class Svirfneblin
   def initialize
     @display = Luck::Display.new nil
-    @map = Array.new(@@WIDTH).map! { Array.new(@@HEIGHT) }
+    @map = Map.new(80,24)
     @hero = Coordinate.new(5,5)
       @exit = false
   end
@@ -47,12 +44,7 @@ class Svirfneblin
 
   def draw
     @display.redraw
-    (0..20).each do |y|
-      (0..70).each do |x|
-        if @map[x][y] != nil
-          @display.place x, y, @map[x][y].to_s
-        end
-      end
+
     end
     @display.place @hero.y, @hero.x, "@"
   end
