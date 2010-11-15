@@ -1,3 +1,5 @@
+require 'bundler'
+Bundler.setup
 require 'luck'
 
 @@WIDTH = 80
@@ -38,6 +40,11 @@ class Svirfneblin
     end
   end
 
+  def quit
+    @display.close
+    puts "Thank you for playing Svirfneblin."
+  end
+
   def draw
     @display.redraw
     (0..20).each do |y|
@@ -52,5 +59,10 @@ class Svirfneblin
 
   def handle
     c = $<.getc
+    if(c=='r')
+      @hero = Coordinate.new(rand(50),rand(50))
+    elsif(c=='q')
+      @exit = true
+    end
   end
 end
