@@ -54,13 +54,21 @@ class Svirfneblin
         end
       end
     end
-    @display.place @hero.x, @hero.y, "@"
+    @display.place @hero.y, @hero.x, "@"
   end
 
   def handle
     c = $<.getc
     if(c=='r')
       @hero = Coordinate.new(rand(50),rand(50))
+    elsif(c=='j')
+      @hero = Coordinate.new(@hero.x,@hero.y+1)
+    elsif(c=='k')
+      @hero = Coordinate.new(@hero.x,@hero.y-1)
+    elsif(c=='h')
+      @hero = Coordinate.new(@hero.x-1,@hero.y)
+    elsif(c=='l')
+      @hero = Coordinate.new(@hero.x+1,@hero.y)
     elsif(c=='q')
       @exit = true
     end
