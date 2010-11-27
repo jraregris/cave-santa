@@ -4,25 +4,14 @@ require 'luck'
 
 require 'svirfneblin/map'
 
-class Coordinate
-  def initialize(x,y)
-    @x,@y = x,y
-  end
 
-  def x
-    @x
-  end
-
-  def y
-    @y
-  end
-end
 
 class Svirfneblin
   def initialize
     @display = Luck::Display.new nil
     @map = Map.new(80,24) do |m|
       m.seed 50, '#'
+      m.make_border '#'
     end
     @hero = Coordinate.new(5,5)
       @exit = false
@@ -61,13 +50,13 @@ class Svirfneblin
     if(c=='r')
       @hero = Coordinate.new(rand(50),rand(50))
     elsif(c=='j')
-      @hero = Coordinate.new(@hero.x,@hero.y+1)
+      @hero = Coordinate.new(@hero.x,@hero.y+1) unless @map[@hero.x,@hero.y+1] == '#' 
     elsif(c=='k')
-      @hero = Coordinate.new(@hero.x,@hero.y-1)
+      @hero = Coordinate.new(@hero.x,@hero.y-1) unless @map[@hero.x,@hero.y-1] == '#' 
     elsif(c=='h')
-      @hero = Coordinate.new(@hero.x-1,@hero.y)
+      @hero = Coordinate.new(@hero.x-1,@hero.y) unless @map[@hero.x-1,@hero.y] == '#' 
     elsif(c=='l')
-      @hero = Coordinate.new(@hero.x+1,@hero.y)
+      @hero = Coordinate.new(@hero.x+1,@hero.y) unless @map[@hero.x+1,@hero.y] == '#' 
     elsif(c=='q')
       @exit = true
     end
