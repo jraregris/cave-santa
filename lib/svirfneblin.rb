@@ -2,6 +2,8 @@ require 'bundler'
 Bundler.setup
 require 'luck'
 
+require 'svirfneblin/map'
+
 class Coordinate
   def initialize(x,y)
     @x,@y = x,y
@@ -45,7 +47,10 @@ class Svirfneblin
   def draw
     @display.redraw
 
-    end
+    @map.cells.each { |coord, char|
+      @display.place coord.y, coord.x, char
+    }
+
     @display.place @hero.y, @hero.x, "@"
   end
 
