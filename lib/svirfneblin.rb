@@ -12,6 +12,7 @@ class Svirfneblin
     @map = Map.new(80,24) do |m|
       m.seed 50, '#'
       m.make_border '#'
+      m.make_exit
     end
     @hero = Coordinate.new(5,5)
       @exit = false
@@ -32,6 +33,7 @@ class Svirfneblin
 
   def quit
     @display.close
+    puts "Congratulations, you win!" if @win
     puts "Thank you for playing Svirfneblin."
   end
 
@@ -60,5 +62,14 @@ class Svirfneblin
     elsif(c=='q')
       @exit = true
     end
+
+    if @map[@hero.x,@hero.y] == '<'
+      win
+    end
+  end
+
+  def win
+    @win = true
+    @exit = true
   end
 end

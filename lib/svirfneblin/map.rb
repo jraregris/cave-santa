@@ -39,4 +39,8 @@ class Map
         @cells[k] = c
       end
   end
+
+  def make_exit
+    @cells[Coordinate.new(@width/2,@height-1)] = '<'
+  end
 end
