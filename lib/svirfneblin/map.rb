@@ -3,7 +3,7 @@ require 'svirfneblin/coordinate'
 class Map
   attr_reader :width, :height
 
-  def initialize width, height
+  def initialize width, height, &blk
     @width, @height = width, height
     @cells = {}
     (0..width-1).each do |x|
@@ -11,6 +11,7 @@ class Map
         @cells[Coordinate.new(x,y)] = '.'
       end
     end
+    blk.call self unless not blk
   end
 
   def cells x=nil, y=nil
@@ -22,5 +23,11 @@ class Map
 
   def [](x,y)
     @cells[Coordinate.new(x,y)]
+  end
+
+  def seed n, c
+    n.times do
+      @cells[Coordinate.new(rand(@width),rand(@height))] = c
+    end
   end
 end

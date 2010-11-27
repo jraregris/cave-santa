@@ -21,7 +21,9 @@ end
 class Svirfneblin
   def initialize
     @display = Luck::Display.new nil
-    @map = Map.new(80,24)
+    @map = Map.new(80,24) do |m|
+      m.seed 50, '#'
+    end
     @hero = Coordinate.new(5,5)
       @exit = false
   end
