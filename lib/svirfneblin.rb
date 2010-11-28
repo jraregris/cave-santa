@@ -1,14 +1,12 @@
 require 'bundler'
 Bundler.setup
-require 'luck'
 
 require 'svirfneblin/map'
-
-
+require 'svirfneblin/display'
 
 class Svirfneblin
   def initialize
-    @display = Luck::Display.new nil
+    @display = Display.new :luck
     @map = Map.new(80,24) do |m|
       m.seed 50, '#'
       m.make_border '#'
