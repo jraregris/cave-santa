@@ -33,7 +33,7 @@ class Map
 
   def make_border c='#'
       n = @cells.select do |k,v|
-        k.x == 1 || k.x == @width-1 || k.y == 1 || k.y == @height-1
+        k.x == 0 || k.x == @width-1 || k.y == 0 || k.y == @height-1
       end
       n.each do |k,v|
         @cells[k] = c
