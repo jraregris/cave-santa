@@ -7,6 +7,12 @@ describe Coordinate do
       two = Coordinate.new(0,0)
       one.should == two
     end
+
+    it "should not equal x,y y,x" do
+      one = Coordinate.new(1,3)
+      two = Coordinate.new(3,1)
+      one.should_not == two
+    end
   end
 
   context "hash" do

@@ -1,14 +1,12 @@
 require 'bundler'
 Bundler.setup
-require 'luck'
 
 require 'svirfneblin/map'
-
-
+require 'svirfneblin/display'
 
 class Svirfneblin
   def initialize
-    @display = Luck::Display.new nil
+    @display = Display.new :ncursesw
     @map = Map.new(80,24) do |m|
       m.seed 50, '#'
       m.make_border '#'
@@ -38,17 +36,19 @@ class Svirfneblin
   end
 
   def draw
-    @display.redraw
+    @display.clear
 
     @map.cells.each { |coord, char|
-      @display.place coord.y, coord.x, char
+      @display.place coord.x, coord.y, char
     }
 
-    @display.place @hero.y, @hero.x, "@"
+    @display.place @hero.x, @hero.y, "@"
+
+    @display.redraw
   end
 
   def handle
-    c = $<.getc
+    c = @display.getc
     if(c=='r')
       @hero = Coordinate.new(rand(50),rand(50))
     elsif(c=='j')
