@@ -51,6 +51,7 @@ class NcurseswAdapter
     Ncurses.initscr
     Ncurses.cbreak
     Ncurses.noecho
+    Ncurses.curs_set(0)
   end
 
   def clear
