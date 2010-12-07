@@ -12,7 +12,7 @@ class Svirfneblin
       m.make_border '#'
       m.make_exit
     end
-    @hero = Coordinate.new(5,5)
+    @hero = Coordinate.new(rand(80), rand(24))
       @exit = false
   end
 
@@ -50,7 +50,7 @@ class Svirfneblin
   def handle
     c = @display.getc
     if(c=='r')
-      @hero = Coordinate.new(rand(50),rand(50))
+      @hero = Coordinate.new(rand(80),rand(24))
     elsif(c=='j')
       @hero = Coordinate.new(@hero.x,@hero.y+1) unless @map[@hero.x,@hero.y+1] == '#' 
     elsif(c=='k')
