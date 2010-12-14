@@ -1,9 +1,9 @@
 Svirfneblin ![Project status](http://stillmaintained.com/jraregris/svirfneblin.png)
 ===========
 
->  <$ git clone git://github.com/jraregris/svirfneblin.git>
->  <$ bundle install>
->  <$ bin/svirfneblin>
+    $ git clone git://github.com/jraregris/svirfneblin.git
+    $ bundle install
+    $ bin/svirfneblin
 
 You probably need to install libncursesw5-dev or something similar to get the ncursesw builing.
 
