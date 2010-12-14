@@ -6,11 +6,15 @@ require 'svirfneblin/display'
 
 class Svirfneblin
   def initialize
+ 
     @display = Display.new :ncursesw
-    @map = Map.new(80,24) do |m|
-      m.seed 50, '#'
-      m.make_border '#'
-      m.make_exit
+    @display.place 0,0,"Welcome, brave Svirfneblin! Find your way home! --space--"
+    @display.getc
+
+    @map = Map.new(80,24) do |map|
+      map.seed 50, '#'
+      map.make_border '#'
+      map.make_exit
     end
     @hero = Coordinate.new(rand(80), rand(24))
       @exit = false
@@ -49,16 +53,19 @@ class Svirfneblin
 
   def handle
     c = @display.getc
+ 
+    x,y = @hero.x, @hero.y
+
     if(c=='r')
       @hero = Coordinate.new(rand(80),rand(24))
     elsif(c=='j')
-      @hero = Coordinate.new(@hero.x,@hero.y+1) unless @map[@hero.x,@hero.y+1] == '#' 
+      @hero = Coordinate.new(x,y+1) unless @map[x,y+1] == '#' 
     elsif(c=='k')
-      @hero = Coordinate.new(@hero.x,@hero.y-1) unless @map[@hero.x,@hero.y-1] == '#' 
+      @hero = Coordinate.new(x,y-1) unless @map[x,y-1] == '#' 
     elsif(c=='h')
-      @hero = Coordinate.new(@hero.x-1,@hero.y) unless @map[@hero.x-1,@hero.y] == '#' 
+      @hero = Coordinate.new(x-1,y) unless @map[x-1,y] == '#' 
     elsif(c=='l')
-      @hero = Coordinate.new(@hero.x+1,@hero.y) unless @map[@hero.x+1,@hero.y] == '#' 
+      @hero = Coordinate.new(x+1,y) unless @map[x+1,y] == '#' 
     elsif(c=='q')
       @exit = true
     end
