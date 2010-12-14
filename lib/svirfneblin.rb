@@ -6,7 +6,11 @@ require 'svirfneblin/display'
 
 class Svirfneblin
   def initialize
+ 
     @display = Display.new :ncursesw
+    @display.place 0,0,"Welcome, brave Svirfneblin! Find your way home! --space--"
+    @display.getc
+
     @map = Map.new(80,24) do |map|
       map.seed 50, '#'
       map.make_border '#'
