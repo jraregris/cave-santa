@@ -5,6 +5,6 @@ Svirfneblin ![Project status](http://stillmaintained.com/jraregris/svirfneblin.p
     $ bundle install
     $ bin/svirfneblin
 
-You probably need to install libncursesw5-dev or something similar to get the ncursesw builing.
+You probably need to install libncursesw5-dev or something similar to get the ncursesw building.
 
 Oddmund Strømme
