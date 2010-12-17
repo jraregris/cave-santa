@@ -22,4 +22,9 @@ describe Coordinate do
       one.hash.should == two.hash
     end
   end
+
+  it "should be addable with a direction" do
+    c = Coordinate.new(0,0)+S
+    c.should == Coordinate.new(0,1)
+  end
 end
