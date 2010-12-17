@@ -35,4 +35,9 @@ describe Direction do
     d.should equal Direction.new 0,-200
   end
 
+  it "should be addable" do
+    d = NW+NW
+    d.should equal Direction.new -2,-2
+  end
+
 end

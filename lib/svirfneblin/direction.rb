@@ -13,6 +13,10 @@ class Direction
     Direction.new(@x * other, @y * other)
   end
 
+  def + other
+    Direction.new(@x+other.x,@y+other.y)
+  end
+
 end
 
 N = Direction.new 0,-1
