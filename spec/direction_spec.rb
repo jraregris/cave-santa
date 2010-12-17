@@ -27,4 +27,12 @@ describe Direction do
     W.should equal Direction.new -1,0
     NW.should equal Direction.new -1,-1
   end
+
+  it "should me multiplicaple" do
+    d = N*2
+    d.should equal Direction.new 0,-2
+    d = d*100
+    d.should equal Direction.new 0,-200
+  end
+
 end

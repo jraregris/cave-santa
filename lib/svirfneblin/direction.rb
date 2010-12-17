@@ -8,6 +8,11 @@ class Direction
   def equal? other
     @x == other.x && @y == other.y
   end
+
+  def * other
+    Direction.new(@x * other, @y * other)
+  end
+
 end
 
 N = Direction.new 0,-1
