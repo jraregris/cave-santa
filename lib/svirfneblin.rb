@@ -2,6 +2,7 @@ require 'bundler'
 Bundler.setup
 
 require 'svirfneblin/map'
+require 'svirfneblin/direction'
 require 'svirfneblin/display'
 
 class Svirfneblin
@@ -56,19 +57,24 @@ class Svirfneblin
  
     x,y = @hero.x, @hero.y
 
+    dir = Direction.new(0,0)
+
     if(c=='r')
       @hero = Coordinate.new(rand(80),rand(24))
     elsif(c=='j')
-      @hero = Coordinate.new(x,y+1) unless @map[x,y+1] == '#' 
+      dir = S
     elsif(c=='k')
-      @hero = Coordinate.new(x,y-1) unless @map[x,y-1] == '#' 
+      dir = N
     elsif(c=='h')
-      @hero = Coordinate.new(x-1,y) unless @map[x-1,y] == '#' 
+      dir = W
     elsif(c=='l')
-      @hero = Coordinate.new(x+1,y) unless @map[x+1,y] == '#' 
+      dir = E
     elsif(c=='q')
       @exit = true
     end
+
+    target_cell = Coordinate.new(@hero.x, @hero.y)+dir
+    @hero = target_cell unless @map[target_cell.x, target_cell.y] == '#'
 
     if @map[@hero.x,@hero.y] == '<'
       win
