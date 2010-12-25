@@ -22,4 +22,8 @@ class Coordinate
   def to_s
     @x.to_s + "," + @y.to_s
   end
+
+  def + other
+    Coordinate.new(@x+other.x,@y+other.y)
+  end
 end
