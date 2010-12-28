@@ -1,9 +1,7 @@
-require 'luck'
 require 'ncursesw'
 
 class Display
   def initialize adapter=:ncurses
-    @adapter = LuckAdapter.new if adapter==:luck
     @adapter = NcurseswAdapter.new if adapter==:ncursesw
   end
   
@@ -25,24 +23,6 @@ class Display
 
   def clear
     @adapter.clear
-  end
-end
-
-class LuckAdapter
-  def initialize
-    @d = Luck::Display.new nil
-  end
-
-  def close
-    @d.close
-  end
-
-  def redraw
-    @d.redraw
-  end
-
-  def place x, y, tile
-    @d.place y, x, tile
   end
 end
 
