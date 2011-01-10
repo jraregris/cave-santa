@@ -1,6 +1,7 @@
 source :rubygems
 gem 'ncursesw'
-gem 'luck'
+
+gem 'dicechucker'
 
 group :test do
   gem 'rspec'
