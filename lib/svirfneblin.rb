@@ -14,8 +14,12 @@ class Svirfneblin
     @display = Display.new :ncursesw
     @display.place 0,0,"Welcome, brave Svirfneblin!"
     @display.place 0,1,"STR: #{@hero.str}"
+    @display.place 0,2,"DEX: #{@hero.dex}"
+    @display.place 0,3,"CON: #{@hero.con}"
+    @display.place 0,4,"INT: #{@hero.int}"
+    @display.place 0,5,"WIS: #{@hero.wis}"
+    @display.place 0,6,"CHA: #{@hero.cha}"
     
-
     @display.getc
 
     @map = Map.new(80,24) do |map|
@@ -66,7 +70,7 @@ class Svirfneblin
     dir = Direction.new(0,0)
 
     if(c=='r')
-      @hero = Coordinate.new(rand(80),rand(24))
+      @hero.pos = Coordinate.new(rand(80),rand(24))
     elsif(c=='j')
       dir = S
     elsif(c=='k')
