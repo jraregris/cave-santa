@@ -1,8 +1,8 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    dicechucker (0.8.0)
     diff-lcs (1.1.2)
-    luck (0.1.6)
     ncursesw (1.2.4.2)
     rspec (2.3.0)
       rspec-core (~> 2.3.0)
@@ -17,6 +17,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  luck
+  dicechucker
   ncursesw
   rspec

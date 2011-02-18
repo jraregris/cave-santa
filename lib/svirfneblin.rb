@@ -4,12 +4,22 @@ Bundler.setup
 require 'svirfneblin/map'
 require 'svirfneblin/direction'
 require 'svirfneblin/display'
+require 'svirfneblin/character'
 
 class Svirfneblin
   def initialize
  
+    @hero = Character.new(:svirfneblin)
+
     @display = Display.new :ncursesw
-    @display.place 0,0,"Welcome, brave Svirfneblin! Find your way home! --space--"
+    @display.place 0,0,"Welcome, brave Svirfneblin!"
+    @display.place 0,1,"STR: #{@hero.str}"
+    @display.place 0,2,"DEX: #{@hero.dex}"
+    @display.place 0,3,"CON: #{@hero.con}"
+    @display.place 0,4,"INT: #{@hero.int}"
+    @display.place 0,5,"WIS: #{@hero.wis}"
+    @display.place 0,6,"CHA: #{@hero.cha}"
+    
     @display.getc
 
     @map = Map.new(80,24) do |map|
@@ -17,7 +27,7 @@ class Svirfneblin
       map.make_border '#'
       map.make_exit
     end
-    @hero = Coordinate.new(rand(80), rand(24))
+    @hero.pos = Coordinate.new(rand(80), rand(24))
       @exit = false
   end
 
@@ -47,7 +57,7 @@ class Svirfneblin
       @display.place coord.x, coord.y, char
     }
 
-    @display.place @hero.x, @hero.y, "@"
+    @display.place @hero.pos.x, @hero.pos.y, "@"
 
     @display.redraw
   end
@@ -55,12 +65,12 @@ class Svirfneblin
   def handle
     c = @display.getc
  
-    x,y = @hero.x, @hero.y
+    x,y = @hero.pos.x, @hero.pos.y
 
     dir = Direction.new(0,0)
 
     if(c=='r')
-      @hero = Coordinate.new(rand(80),rand(24))
+      @hero.pos = Coordinate.new(rand(80),rand(24))
     elsif(c=='j')
       dir = S
     elsif(c=='k')
@@ -73,10 +83,10 @@ class Svirfneblin
       @exit = true
     end
 
-    target_cell = Coordinate.new(@hero.x, @hero.y)+dir
-    @hero = target_cell unless @map[target_cell.x, target_cell.y] == '#'
+    target_cell = Coordinate.new(@hero.pos.x, @hero.pos.y)+dir
+    @hero.pos = target_cell unless @map[target_cell.x, target_cell.y] == '#'
 
-    if @map[@hero.x,@hero.y] == '<'
+    if @map[@hero.pos.x,@hero.pos.y] == '<'
       win
     end
   end
