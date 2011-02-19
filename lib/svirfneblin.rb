@@ -23,7 +23,7 @@ class Svirfneblin
     @display.getc
 
     @map = Map.new(80,24) do |map|
-      map.seed 500, '#'
+      map.make_cave 2000, '.'
       map.make_border '#'
       map.make_exit
     end

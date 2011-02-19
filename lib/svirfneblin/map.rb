@@ -8,7 +8,7 @@ class Map
     @cells = {}
     (0..width-1).each do |x|
       (0..height-1).each do |y|
-        @cells[Coordinate.new(x,y)] = '.'
+        @cells[Coordinate.new(x,y)] = '#'
       end
     end
     blk.call self if blk
@@ -24,6 +24,15 @@ class Map
   def [](x,y)
     @cells[Coordinate.new(x,y)]
   end
+
+  def make_cave n, c = '.'
+    n.times do
+      x = rand(@width/2)+rand(@width/2)
+      y = rand(@height/2)+rand(@height/2)
+      @cells[Coordinate.new(x,y)] = c
+    end
+  end
+
 
   def seed n, c
     n.times do
