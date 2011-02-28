@@ -43,12 +43,10 @@ class Map
 
   def make_cave n, c = '.'
     n.times do
-      x = rand(@width/2)+rand(@width/2)
-      y = rand(@height/2)+rand(@height/2)
-      @cells[Coordinate.new(x,y)].face = c
+      coord = Coordinate.new(rand(@width/2)+rand(@width/2), rand(@height/2)+rand(@height/2))
+      @cells[coord].face = '.' if @cells[coord].face == '#'
     end
   end
-
 
   def seed n, c
     n.times do

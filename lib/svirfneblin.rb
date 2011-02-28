@@ -26,9 +26,10 @@ class Svirfneblin
   end
 
   def make_map
-    @map = Map.new(80,24) do |map|
+    @map = Map.new(80,25) do |map|
       map.make_cave 2000, '.'
-      map.make_border '#'
+      map.make_border
+      map.polarize!
       map.make_exit
     end
  
