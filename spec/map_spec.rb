@@ -13,10 +13,6 @@ describe Map do
       map.width.should be 80
       map.height.should be 25
     end
-    it "should have lots of '.'-s" do
-      map = Map.new(1,1)
-      map.cells(0,0).should == '.'
-    end
   end
 
   context "[]" do
