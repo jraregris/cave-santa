@@ -12,15 +12,15 @@ class Svirfneblin
     @hero = Character.new(:svirfneblin)
 
     @display = Display.new :ncursesw
-    @display.place 0,0,"Welcome, brave Svirfneblin!"
-    @display.place 0,1,"STR: #{@hero.str}"
-    @display.place 0,2,"DEX: #{@hero.dex}"
-    @display.place 0,3,"CON: #{@hero.con}"
-    @display.place 0,4,"INT: #{@hero.int}"
-    @display.place 0,5,"WIS: #{@hero.wis}"
-    @display.place 0,6,"CHA: #{@hero.cha}"
+#    @display.place 0,0,"Welcome, brave Svirfneblin!"
+#    @display.place 0,1,"STR: #{@hero.str}"
+#    @display.place 0,2,"DEX: #{@hero.dex}"
+#    @display.place 0,3,"CON: #{@hero.con}"
+#    @display.place 0,4,"INT: #{@hero.int}"
+#    @display.place 0,5,"WIS: #{@hero.wis}"
+#    @display.place 0,6,"CHA: #{@hero.cha}"
     
-    @display.getc
+#    @display.getc
 
     @map = Map.new(80,24) do |map|
       map.make_cave 2000, '.'
