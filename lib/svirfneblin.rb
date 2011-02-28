@@ -11,7 +11,7 @@ class Svirfneblin
  
     @hero = Character.new(:svirfneblin)
 
-    @display = Display.new :ncursesw
+
 #    @display.place 0,0,"Welcome, brave Svirfneblin!"
 #    @display.place 0,1,"STR: #{@hero.str}"
 #    @display.place 0,2,"DEX: #{@hero.dex}"
@@ -21,18 +21,23 @@ class Svirfneblin
 #    @display.place 0,6,"CHA: #{@hero.cha}"
     
 #    @display.getc
+    make_map
+    @exit = false
+  end
 
+  def make_map
     @map = Map.new(80,24) do |map|
       map.make_cave 2000, '.'
       map.make_border '#'
       map.make_exit
     end
+ 
     @hero.pos = Coordinate.new(rand(80), rand(24))
-      @exit = false
-  end
+ end
 
   def run
     begin
+      @display = Display.new :ncursesw
       until @exit == true do
         draw
         handle
@@ -54,11 +59,14 @@ class Svirfneblin
     @display.clear
 
     @map.cells.each { |coord, char|
-      @display.place coord.x, coord.y, char
+      @display.place coord.x, coord.y, char.face
     }
 
     @display.place @hero.pos.x, @hero.pos.y, "@"
 
+    @display.place 2, 26, "Stone: " + @map.cells.reject {|k,v| v.face != '#'}.size.to_s
+    @display.place 2, 27, "Floor: " + @map.cells.reject {|k,v| v.face != '.'}.size.to_s
+    @display.place 2, 28, "Cell : " + @map[@hero.pos.x,@hero.pos.y][N].to_s
     @display.redraw
   end
 
@@ -71,6 +79,11 @@ class Svirfneblin
 
     if(c=='r')
       @hero.pos = Coordinate.new(rand(80),rand(24))
+    elsif(c=='R')
+      make_map
+    elsif(c=='P')
+      @map.polarize!
+      @map.make_border '#'
     elsif(c=='j')
       dir = S
     elsif(c=='k')
@@ -84,9 +97,9 @@ class Svirfneblin
     end
 
     target_cell = Coordinate.new(@hero.pos.x, @hero.pos.y)+dir
-    @hero.pos = target_cell unless @map[target_cell.x, target_cell.y] == '#'
+    @hero.pos = target_cell #unless @map[target_cell.x, target_cell.y].face == '#'
 
-    if @map[@hero.pos.x,@hero.pos.y] == '<'
+    if @map[@hero.pos.x,@hero.pos.y].face == '<'
       win
     end
   end
