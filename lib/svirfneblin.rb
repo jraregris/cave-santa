@@ -33,7 +33,7 @@ class Svirfneblin
       map.make_exit
     end
  
-    @hero.pos = Coordinate.new(rand(80), rand(24))
+    random_hero
  end
 
   def run
@@ -79,30 +79,45 @@ class Svirfneblin
     dir = Direction.new(0,0)
 
     if(c=='r')
-      @hero.pos = Coordinate.new(rand(80),rand(24))
+      random_hero
     elsif(c=='R')
       make_map
     elsif(c=='P')
       @map.polarize!
       @map.make_border '#'
+
+
+    elsif(c=='h')
+      dir = W
     elsif(c=='j')
       dir = S
     elsif(c=='k')
       dir = N
-    elsif(c=='h')
-      dir = W
     elsif(c=='l')
       dir = E
+    elsif(c=='y')
+      dir = NW
+    elsif(c=='u')
+      dir = NE
+    elsif(c=='b')
+      dir = SW
+    elsif(c=='n')
+      dir = SE
+
     elsif(c=='q')
       @exit = true
     end
 
     target_cell = Coordinate.new(@hero.pos.x, @hero.pos.y)+dir
-    @hero.pos = target_cell #unless @map[target_cell.x, target_cell.y].face == '#'
+    @hero.pos = target_cell unless @map[target_cell.x, target_cell.y].face == '#'
 
     if @map[@hero.pos.x,@hero.pos.y].face == '<'
       win
     end
+  end
+
+  def random_hero
+    @hero.pos = @map.random_floor_coord
   end
 
   def win

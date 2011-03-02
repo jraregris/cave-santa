@@ -71,6 +71,19 @@ class Map
   end
 
   def make_exit
-    @cells[Coordinate.new(@width/2,@height-1)].face = '<'
+    nooks = []
+    
+    @cells.each_value do |c|
+      nooks << c if (c.neighbors_with_face('#') > 4 && c.neighbors_with_face('.') > 0)
+    end
+    nooks.shuffle.first.face = '<'
+  end
+
+  def random_floor_coord
+    floors = []
+    @cells.each_pair do |co,ce|
+      floors << co if ce.face == '.'
+    end
+    floors.shuffle.first
   end
 end
