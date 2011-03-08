@@ -57,8 +57,6 @@ class Svirfneblin
   end
 
   def draw
-    @display.clear
-
     @map.cells.each { |coord, char|
       @display.place coord.x, coord.y, char.face
     }
