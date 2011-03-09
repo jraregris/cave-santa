@@ -8,19 +8,7 @@ require 'svirfneblin/character'
 
 class Svirfneblin
   def initialize
- 
     @hero = Character.new(:svirfneblin)
-
-
-#    @display.place 0,0,"Welcome, brave Svirfneblin!"
-#    @display.place 0,1,"STR: #{@hero.str}"
-#    @display.place 0,2,"DEX: #{@hero.dex}"
-#    @display.place 0,3,"CON: #{@hero.con}"
-#    @display.place 0,4,"INT: #{@hero.int}"
-#    @display.place 0,5,"WIS: #{@hero.wis}"
-#    @display.place 0,6,"CHA: #{@hero.cha}"
-    
-#    @display.getc
     make_map
     @exit = false
   end
@@ -62,7 +50,6 @@ class Svirfneblin
     }
 
     @display.place @hero.pos.x, @hero.pos.y, "@"
-
     @display.place 2, 26, "Stone: " + @map.cells.reject {|k,v| v.face != '#'}.size.to_s
     @display.place 2, 27, "Floor: " + @map.cells.reject {|k,v| v.face != '.'}.size.to_s
     @display.place 2, 28, "Cell : " + @map[@hero.pos.x,@hero.pos.y][N].to_s
