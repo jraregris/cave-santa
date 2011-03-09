@@ -1,6 +1,5 @@
 source :rubygems
 gem 'ncursesw'
-
 gem 'dicechucker'
 
 group :test do
