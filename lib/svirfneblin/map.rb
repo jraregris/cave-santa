@@ -37,7 +37,10 @@ class Map
     @cells[Coordinate.new(x,y)]
   end
 
-  def [](x,y)
+  def [](x=nil,y=nil)
+    if x.respond_to?(:x) and x.respond_to?(:y)
+      return @cells[x]
+    end
     @cells[Coordinate.new(x,y)]
   end
 

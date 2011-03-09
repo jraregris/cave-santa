@@ -20,7 +20,6 @@ class Svirfneblin
       map.polarize!
       map.make_exit
     end
- 
     random_hero
  end
 
@@ -48,6 +47,8 @@ class Svirfneblin
     @map.cells.each { |coord, char|
       @display.place coord.x, coord.y, char.face
     }
+    @display.place @hero.pos.x, @hero.pos.y, "@"
+
     @display.redraw
   end
 
@@ -65,7 +66,6 @@ class Svirfneblin
     elsif(c=='P')
       @map.polarize!
       @map.make_border '#'
-
 
     elsif(c=='h')
       dir = W
@@ -88,8 +88,8 @@ class Svirfneblin
       @exit = true
     end
 
-    target_cell = Coordinate.new(@hero.pos.x, @hero.pos.y)+dir
-    @hero.pos = target_cell unless @map[target_cell.x, target_cell.y].face == '#'
+    target_cell = @hero.pos + dir
+    @hero.pos = target_cell unless @map[target_cell].face == '#'
 
     if @map[@hero.pos.x,@hero.pos.y].face == '<'
       win
