@@ -26,7 +26,7 @@ class Svirfneblin
 
   def run
     begin
-      @display = Display.new :ncursesw
+      @display = Display.new
       until @exit == true do
         draw
         handle
@@ -48,11 +48,6 @@ class Svirfneblin
     @map.cells.each { |coord, char|
       @display.place coord.x, coord.y, char.face
     }
-
-    @display.place @hero.pos.x, @hero.pos.y, "@"
-    @display.place 2, 26, "Stone: " + @map.cells.reject {|k,v| v.face != '#'}.size.to_s
-    @display.place 2, 27, "Floor: " + @map.cells.reject {|k,v| v.face != '.'}.size.to_s
-    @display.place 2, 28, "Cell : " + @map[@hero.pos.x,@hero.pos.y][N].to_s
     @display.redraw
   end
 

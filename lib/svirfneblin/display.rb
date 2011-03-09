@@ -1,8 +1,8 @@
 require 'ncursesw'
 
 class Display
-  def initialize adapter=:ncurses
-    @adapter = NcurseswAdapter.new if adapter==:ncursesw
+  def initialize
+    @adapter = NcurseswAdapter.new
   end
   
   def close
