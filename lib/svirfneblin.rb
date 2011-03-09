@@ -88,10 +88,9 @@ class Svirfneblin
       @exit = true
     end
 
-    target_cell = @hero.pos + dir
-    @hero.pos = target_cell unless @map[target_cell].face == '#'
+    @hero.pos = @hero.pos + dir unless @map[@hero.pos + dir].face == '#'
 
-    if @map[@hero.pos.x,@hero.pos.y].face == '<'
+    if @map[@hero.pos,@hero.pos].face == '<'
       win
     end
   end
