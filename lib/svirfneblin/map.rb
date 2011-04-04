@@ -37,12 +37,15 @@ class Map
     @cells[Coordinate.new(x,y)]
   end
 
-  def [](x,y)
+  def [](x=nil,y=nil)
+    if x.respond_to?(:x) and x.respond_to?(:y)
+      return @cells[x]
+    end
     @cells[Coordinate.new(x,y)]
   end
 
-  def make_cave n, c = '.'
-    n.times do
+  def make_cave
+    2000.times do
       coord = Coordinate.new(rand(@width/2)+rand(@width/2), rand(@height/2)+rand(@height/2))
       @cells[coord].face = '.' if @cells[coord].face == '#'
     end

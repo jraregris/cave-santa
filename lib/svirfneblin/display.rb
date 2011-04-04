@@ -1,8 +1,8 @@
 require 'ncursesw'
 
 class Display
-  def initialize adapter=:ncurses
-    @adapter = NcurseswAdapter.new if adapter==:ncursesw
+  def initialize
+    @adapter = NcurseswAdapter.new
   end
   
   def close
@@ -36,13 +36,9 @@ class NcurseswAdapter
 
     Ncurses.start_color
 
-    Ncurses.init_pair(1, 6, 0)
-
-    @c = {}
-    
-    @c[:cyan] = Ncurses.COLOR_PAIR(1)
-
-
+    Ncurses.init_pair(1, 2, 0)
+    Ncurses.init_pair(2, 3, 0)
+    Ncurses.init_pair(3, 4, 0)
   end
 
   def clear
@@ -61,8 +57,10 @@ class NcurseswAdapter
   def place x, y, tile
     if tile == '#'
       @s.attrset(Ncurses.COLOR_PAIR(1))
-    elsif
-      @s.attrset(Ncurses.COLOR_PAIR(0))
+    elsif tile == '@'
+      @s.attrset(Ncurses.COLOR_PAIR(2))
+    else
+      @s.attrset(Ncurses.COLOR_PAIR(3))
     end
     @s.mvaddstr y, x, tile.to_s
 
