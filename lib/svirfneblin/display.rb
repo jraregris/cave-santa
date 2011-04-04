@@ -36,9 +36,9 @@ class NcurseswAdapter
 
     Ncurses.start_color
 
-    Ncurses.init_pair(1, 243, 0)
-    Ncurses.init_pair(2, 102, 0)
-    Ncurses.init_pair(3, 238, 0)
+    Ncurses.init_pair(1, 2, 0)
+    Ncurses.init_pair(2, 3, 0)
+    Ncurses.init_pair(3, 4, 0)
   end
 
   def clear
