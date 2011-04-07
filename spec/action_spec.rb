@@ -34,7 +34,7 @@ class ActionMapper
   end
 
   def action input
-
+    @actions.first
   end
 end
 
@@ -44,9 +44,6 @@ describe ActionMapper do
     a = Action.new(Object.new, :hash)
 
     am.add(a) do |input| input == 'i' end
-
-
     am.action('i').should == a
-
   end
 end
