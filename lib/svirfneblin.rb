@@ -67,28 +67,28 @@ class Svirfneblin
       @map.polarize!
       @map.make_border '#'
 
-    elsif(c=='h')
-      dir = W
-    elsif(c=='j')
-      dir = S
-    elsif(c=='k')
-      dir = N
-    elsif(c=='l')
-      dir = E
-    elsif(c=='y')
-      dir = NW
-    elsif(c=='u')
-      dir = NE
-    elsif(c=='b')
-      dir = SW
-    elsif(c=='n')
-      dir = SE
+    elsif(c=='h'||c=='4')
+      move_hero W
+    elsif(c=='j'||c=='2')
+      move_hero S
+    elsif(c=='k'||c=='8')
+      move_hero N
+    elsif(c=='l'||c=='6')
+      move_hero E
+    elsif(c=='y'||c=='7')
+      move_hero NW
+    elsif(c=='u'||c=='9')
+      move_hero NE
+    elsif(c=='b'||c=='1')
+      move_hero SW
+    elsif(c=='n'||c=='3')
+      move_hero SE
 
     elsif(c=='q')
       @exit = true
     end
 
-    @hero.pos = @hero.pos + dir unless @map[@hero.pos + dir].face == '#'
+
 
     if @map[@hero.pos,@hero.pos].face == '<'
       win
@@ -97,6 +97,11 @@ class Svirfneblin
 
   def random_hero
     @hero.pos = @map.random_floor_coord
+  end
+
+
+  def move_hero dir
+    @hero.pos = @hero.pos + dir unless @map[@hero.pos + dir].face == '#'
   end
 
   def win
