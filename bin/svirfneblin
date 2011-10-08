@@ -2,5 +2,4 @@
 $: << File.join(File.dirname(__FILE__),"/../lib/")
 require 'svirfneblin'
 
-srand 1337
 Svirfneblin.new.run
