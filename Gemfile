@@ -1,4 +1,5 @@
 source :rubygems
+gem 'rake'
 gem 'dicechucker'
 
 group :production do
