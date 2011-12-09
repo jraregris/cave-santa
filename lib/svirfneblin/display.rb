@@ -1,10 +1,8 @@
-require 'luck'
 require 'ncursesw'
 
 class Display
-  def initialize adapter=:ncurses
-    @adapter = LuckAdapter.new if adapter==:luck
-    @adapter = NcurseswAdapter.new if adapter==:ncursesw
+  def initialize
+    @adapter = NcurseswAdapter.new
   end
   
   def close
@@ -26,32 +24,39 @@ class Display
   def clear
     @adapter.clear
   end
-end
 
-class LuckAdapter
-  def initialize
-    @d = Luck::Display.new nil
-  end
-
-  def close
-    @d.close
-  end
-
-  def redraw
-    @d.redraw
-  end
-
-  def place x, y, tile
-    @d.place y, x, tile
+  def bs
+    @adapter.bs
   end
 end
 
 class NcurseswAdapter
+  def bs
+    Ncurses::KEY_BACKSPACE
+  end
+
   def initialize
-    Ncurses.initscr
+    @s = Ncurses.initscr
     Ncurses.cbreak
     Ncurses.noecho
     Ncurses.curs_set(0)
+
+    Ncurses.start_color
+
+    Ncurses.init_pair(1, 2, 0)
+    Ncurses.init_pair(2, 3, 0)
+    Ncurses.init_pair(3, 4, 0)
+    Ncurses.init_pair(4, 5, 0)
+    Ncurses.init_pair(5, 6, 0)
+    Ncurses.init_pair(6, 7, 0)
+
+    @colormap = Hash.new(Ncurses.COLOR_PAIR(3))
+
+    @colormap['#'] = Ncurses.COLOR_PAIR(1)
+    @colormap['&'] = Ncurses.COLOR_PAIR(2)
+    @colormap['o'] = Ncurses.COLOR_PAIR(4)
+    @colormap['C'] = Ncurses.COLOR_PAIR(5)
+    @colormap['*'] = Ncurses.COLOR_PAIR(6)
   end
 
   def clear
@@ -68,7 +73,8 @@ class NcurseswAdapter
   end
 
   def place x, y, tile
-    Ncurses.mvaddstr y, x, tile.to_s
+    @s.attrset(@colormap[tile])
+    @s.mvaddstr y, x, tile.to_s
   end
 
   def getc

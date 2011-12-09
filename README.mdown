@@ -1,10 +1,10 @@
-Svirfneblin ![Project status](http://stillmaintained.com/jraregris/svirfneblin.png)
+Cave Santa
 ===========
 
-    $ git clone git://github.com/jraregris/svirfneblin.git
-    $ bundle install
-    $ bin/svirfneblin
+It's Cave Christmas and you are Cave Santa. You must deliver as many Cave Presents to the Cave Orphans as you can before you get eaten by the Cave Cannibals!
 
-You probably need to install libncursesw5-dev or something similar to get the ncursesw building.
+Navigate the Caves by pressing the vikeys or numpad. Interact with things by walking on them. Be the Best Cave Santa and get on the High Score table!
+
+The game that spawned the One Day Roguelike Challenge December 2011.
 
 Oddmund Strømme

@@ -1,6 +1,12 @@
 source :rubygems
-gem 'ncursesw'
-gem 'luck'
+gem 'rake'
+gem 'dicechucker'
+gem 'mongo'
+gem 'bson_ext'
+
+group :production do
+  gem 'ncursesw'
+end
 
 group :test do
   gem 'rspec'
