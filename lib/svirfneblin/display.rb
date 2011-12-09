@@ -24,9 +24,16 @@ class Display
   def clear
     @adapter.clear
   end
+
+  def bs
+    @adapter.bs
+  end
 end
 
 class NcurseswAdapter
+  def bs
+    Ncurses::KEY_BACKSPACE
+  end
 
   def initialize
     @s = Ncurses.initscr
@@ -39,6 +46,17 @@ class NcurseswAdapter
     Ncurses.init_pair(1, 2, 0)
     Ncurses.init_pair(2, 3, 0)
     Ncurses.init_pair(3, 4, 0)
+    Ncurses.init_pair(4, 5, 0)
+    Ncurses.init_pair(5, 6, 0)
+    Ncurses.init_pair(6, 7, 0)
+
+    @colormap = Hash.new(Ncurses.COLOR_PAIR(3))
+
+    @colormap['#'] = Ncurses.COLOR_PAIR(1)
+    @colormap['&'] = Ncurses.COLOR_PAIR(2)
+    @colormap['o'] = Ncurses.COLOR_PAIR(4)
+    @colormap['C'] = Ncurses.COLOR_PAIR(5)
+    @colormap['*'] = Ncurses.COLOR_PAIR(6)
   end
 
   def clear
@@ -55,15 +73,8 @@ class NcurseswAdapter
   end
 
   def place x, y, tile
-    if tile == '#'
-      @s.attrset(Ncurses.COLOR_PAIR(1))
-    elsif tile == '@'
-      @s.attrset(Ncurses.COLOR_PAIR(2))
-    else
-      @s.attrset(Ncurses.COLOR_PAIR(3))
-    end
+    @s.attrset(@colormap[tile])
     @s.mvaddstr y, x, tile.to_s
-
   end
 
   def getc

@@ -1,9 +1,10 @@
 require 'svirfneblin/cell'
 require 'svirfneblin/coordinate'
 require 'svirfneblin/direction'
+require 'svirfneblin/actor'
 
 class Map
-  attr_reader :width, :height
+  attr_reader :width, :height, :presents, :cannibals, :orphans
 
   def initialize width, height, &blk
     @width, @height = width, height
@@ -26,6 +27,10 @@ class Map
         @cells[Coordinate.new(x,y)][NW] = @cells[Coordinate.new(x-1,y-1)] if @cells[Coordinate.new(x-1,y-1)]
       end
     end
+
+    @orphans = []
+    @cannibals = []
+    @presents = []
 
     blk.call self if blk
   end
@@ -51,6 +56,48 @@ class Map
     end
   end
 
+  def make_orphans n
+    n.times { @orphans << Actor.new(random_floor_coord) }
+  end
+
+  def make_presents n
+    n.times { @presents << Actor.new(random_floor_coord) }
+  end
+
+  def take_present hpos
+    @presents.each do |p|
+      if p.pos == hpos
+        @presents.delete(p)
+        return true
+      end
+    end
+    false
+  end
+
+  def give_present hpos
+     @orphans.each do |o|
+       if o.pos == hpos
+         if o.gifted
+           if o.spoiled
+             return :already_spoiled
+           else
+             o.spoiled = true
+             return :already_gifted
+           end
+         else
+           o.gifted = true
+           return :gifted
+         end
+       end
+     end
+     nil
+  end
+
+
+  def make_cannibals n
+    n.times { @cannibals << Actor.new(random_floor_coord)}
+  end
+
   def seed n, c
     n.times do
       @cells[Coordinate.new(rand(@width),rand(@height))].face = c
@@ -64,6 +111,28 @@ class Map
       n.each do |k,v|
         @cells[k].face =  c
       end
+  end
+
+  def move_cannibals
+    @cannibals.each do |c|
+      n = @cells[c.pos].neighbors.reject {|k,v| v.face != '.'}
+      c.pos = (c.pos + n.keys.sample) unless n.empty?
+      
+    end
+  end
+
+  def cannibals_eat_orphans
+    @orphans.each do |o|
+      @cannibals.each do |c|
+        if o.pos == c.pos
+          @orphans.delete(o)
+        end
+      end
+    end
+  end
+  
+  def cannibals_eat_hero? hpos
+    not @cannibals.select{|c| c.pos == hpos}.empty?
   end
 
   def polarize!
