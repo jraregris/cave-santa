@@ -1,4 +1,6 @@
 require 'bundler'
+require 'yaml/store'
+
 Bundler.setup
 
 require 'svirfneblin/map'
@@ -115,7 +117,7 @@ class Svirfneblin
 
     require 'mongo'
 
-    high = Mongo::Connection.new.db("santa")["highscores"]
+    store = YAML::Store.new 'santa.store'
 
     score = {
       "name"=>@name, 
@@ -125,8 +127,20 @@ class Svirfneblin
       "level"=>@level, 
       "time"=> Time.now}
 
-    high.insert score
-    hs = high.find({}).sort(["giftings",:desc]).limit(10)
+    store.transaction do 
+      store["#{score['time']}"] = score
+    end
+
+    hs = {}
+    store.transaction do
+      store.roots.each do |r|
+        hs[r] = store[r]
+        puts r
+        puts store[r]
+      end
+    end
+
+    #hs = store.find({}).sort(["giftings",:desc]).limit(10)
 
     i = 1
     @display.place 1,2,"    Name              Giftings"
